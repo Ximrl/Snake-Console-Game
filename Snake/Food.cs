@@ -46,13 +46,22 @@ namespace Snake
             food.max_xbound = max_xbound; 
             food.min_ybound = min_ybound;
             food.max_ybound = max_ybound;
-            foreach (Point p in ObjCore)
+            bool cert;
+            do
             {
-                while (p.CheckHit(food, "xy"))
-                   food = new Food(food);
-            }
+                cert = true;
+                foreach (Point p in ObjCore)
+                {
+                    while(food.CheckHit(p, "xy"))
+                    {
+                        food = new Food(food);
+                        cert = false;
+                    }  
+                }
+            } while (cert != true);
             return food;
         }
+
         public override void Draw()
         {
             Console.ForegroundColor = color;
